@@ -1,5 +1,7 @@
 spotpath = '../../../Programs/spotless';
 addpath(genpath(spotpath));
+sdptpath = '../../../Programs/SDPT3-4.0';
+addpath(genpath(sdptpath));
 
 x = msspoly('x', 2);
 a = [1;1];

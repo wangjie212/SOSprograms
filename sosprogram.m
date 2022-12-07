@@ -2,7 +2,7 @@
 % min  a'u
 % s.t. f_0 + f_1u_1 + ... + f_mu_m = s_0 + s_1g_1 + ... + s_pg_p + t_1h_1 + ... + t_qt_q
 %      s_1, ..., s_p are SOS, t_1, ..., t_q are polynomials
-% d: relaxation order
+% d is the relaxation order.
 % It outputs sdpt format data.
 
 function [blk, At, C, b] = sosprogram(a, f, g, h, x, d)
