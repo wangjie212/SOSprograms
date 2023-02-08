@@ -1,20 +1,20 @@
 clc
 clear all
 close all
-% restoredefaultpath
 
-% mosekpath   = "../../../mosek";
-% sdpt3path   = "../SDPT3";
-% sostools    = "../SOSTOOLS";
-% spotpath    = "../CBF_framework/matlab/spotless";
-% addpath(genpath(mosekpath))
+restoredefaultpath
+mosekpath   = "../../../mosek";
+sdpt3path   = "../SDPT3";
+sostools    = "../SOSTOOLS";
+spotpath    = "../CBF_framework/matlab/spotless";
+addpath(genpath(mosekpath))
 
 kappa = 3;
 umax  = 1;
 thmax = 2;
 
 %% A SOS program using SOSTOOLS, MOSEK solves to global optimality
-% addpath(genpath(sostools))
+addpath(genpath(sostools))
 x   = mpvar('x',[2,1]);
 x1  = x(1);
 x2  = x(2);
@@ -54,10 +54,10 @@ gamma = -1 * (1 ./ (p+1)) .* (thmax .^ (p));
 [lamstar,out] = mysosprogram(gamma, [phi;th_basis], s, h, var, kappa);
 
 %% Same SOS program using your code, MOSEK/SDPT3 returns infeasible
-% rmpath(genpath(sostools))
-% addpath(genpath(pwd))
-% addpath(genpath(spotpath))
-% addpath(genpath(sdpt3path))
+rmpath(genpath(sostools))
+addpath(genpath(pwd))
+addpath(genpath(spotpath))
+addpath(genpath(sdpt3path))
 
 x   = msspoly('x',2);
 x1  = x(1);
