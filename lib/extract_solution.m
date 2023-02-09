@@ -1,20 +1,16 @@
-% Extract solutions from the moment matrix if the flatness condition is
-% satisfied.
+% Extract solutions from the moment matrix if the flatness condition is satisfied.
 
 % Input
-% Mmatrix: moment matrix
-% x: Yalmip variables
+% moment: moment matrix
+% x: polynomial variables
 % v: monomial basis
 
 % Output
-% sol: a matrix consisting of optimal solutions
+% sol: a matrix whose columns consist of optimal solutions
 
-function sol = extract_solution(Mmatrix, x, v, tol)
-    if nargin < 4
-        tol = 1e-3;
-    end
+function sol = extract_solution(moment, x, v)
     n = length(x);
-    [U, pivot] = rref(Mmatrix', tol);
+    [U, pivot] = rref(moment', 1e-3);
     rk = length(pivot);
     U = U(1:rk,:)';
     w = v(pivot);
@@ -42,11 +38,4 @@ function sol = extract_solution(Mmatrix, x, v, tol)
             sol(j,i) = L(:,i)'*N{j}*L(:,i);
         end
     end
-end
-
-function out = ismember(x,v)
-out = zeros(length(v),1);
-for i = 1:length(v)
-    out(i) = isequal(x,v(i));
-end
 end

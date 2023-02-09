@@ -1,8 +1,8 @@
 clc
 clear all
 close all
-restoredefaultpath
 
+restoredefaultpath
 mosekpath   = "../../../mosek";
 sdpt3path   = "../SDPT3";
 sostools    = "../SOSTOOLS";
