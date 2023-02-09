@@ -9,9 +9,12 @@
 % Output
 % sol: a matrix consisting of optimal solutions
 
-function sol = extract_solution(Mmatrix, x, v)
+function sol = extract_solution(Mmatrix, x, v, tol)
+    if nargin < 4
+        tol = 1e-3;
+    end
     n = length(x);
-    [U, pivot] = rref(Mmatrix', 1e-3);
+    [U, pivot] = rref(Mmatrix', tol);
     rk = length(pivot);
     U = U(1:rk,:)';
     w = v(pivot);
@@ -39,4 +42,11 @@ function sol = extract_solution(Mmatrix, x, v)
             sol(j,i) = L(:,i)'*N{j}*L(:,i);
         end
     end
+end
+
+function out = ismember(x,v)
+out = zeros(length(v),1);
+for i = 1:length(v)
+    out(i) = isequal(x,v(i));
+end
 end
