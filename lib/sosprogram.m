@@ -1,7 +1,7 @@
 % This function converts the following SOS program to an SDP:
 % min  a'u
 % s.t. f_0 + f_1u_1 + ... + f_mu_m = s_0 + s_1g_1 + ... + s_pg_p + t_1h_1 + ... + t_qh_q
-%      s_1, ..., s_p are SOS, t_1, ..., t_q are polynomials
+%      s0, s_1, ..., s_p are SOS, t_1, ..., t_q are polynomials
 % d is the relaxation order.
 % It outputs sdpt format data.
 

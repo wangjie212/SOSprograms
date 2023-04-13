@@ -30,7 +30,7 @@ disp(rank(Xmom(1:end-1,1:end-1),1e-3))
 
 figure; bar(eig(Xmom));
 
-sol = extract_solution(Xopt{1},th,info.v,1e-3);
+sol = extract_solution(Xopt{1},th,info.v,1e-1);
 
 disp(sol)
 
