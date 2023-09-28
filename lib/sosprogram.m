@@ -1,7 +1,7 @@
 % This function converts the following SOS program to an SDP:
 % min  a'u
-% s.t. f_0 + f_1u_1 + ... + f_mu_m = s_0 + s_1g_1 + ... + s_pg_p + t_1h_1 + ... + t_qt_q
-%      s_1, ..., s_p are SOS, t_1, ..., t_q are polynomials
+% s.t. f_0 + f_1u_1 + ... + f_mu_m = s_0 + s_1g_1 + ... + s_pg_p + t_1h_1 + ... + t_qh_q
+%      s0, s_1, ..., s_p are SOS, t_1, ..., t_q are polynomials
 % d is the relaxation order.
 % It outputs sdpt format data.
 
@@ -105,7 +105,7 @@ for k = 1:m-1
     C{2+p,1}(sum(hlb)+k) = a(k);
     for i = 1:lt(k+1)
         locb = bfind(sp, lsp, supp{k+1}(:,i), n);
-        At{2+p,1}(loc+k, locb) = coe{k+1}(i);
+        At{2+p,1}(loc+k, locb) = -coe{k+1}(i);
     end
 end
 end

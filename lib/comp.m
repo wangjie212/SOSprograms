@@ -20,8 +20,5 @@ function sign = comp(a, b, n)
              i = i - 1;
           end
     end
-    if i == 0
-       sign = 0;
-       return
-    end
+    sign = 0;
 end
