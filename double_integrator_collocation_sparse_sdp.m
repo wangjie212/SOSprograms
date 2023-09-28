@@ -1,11 +1,11 @@
 clc; clear; close all;
 
-spotpath = '../spotless';
-mosekpath= '/Users/hengyang/mosek';
-
-addpath(genpath(spotpath));
-addpath(genpath(mosekpath));
-addpath(genpath(pwd));
+% spotpath = '../spotless';
+% mosekpath= '/Users/hengyang/mosek';
+% 
+% addpath(genpath(spotpath));
+% addpath(genpath(mosekpath));
+% addpath(genpath(pwd));
 
 initial_state = [-10;0];
 final_state = [0;0];
@@ -14,10 +14,14 @@ N = 6; % number of break points (timesteps)
 % total number of variables: N controls, 2*(N-2) states, and time interval h
 % x0 and xN are known
 d = 2*(N-2) + N + 1; 
-h = msspoly('hh',1);
-u = msspoly('uu',N);
-x = msspoly('xx',2*(N-2));
-v = [h;u;x];
+v = msspoly('var',2*(N-2)+N+1);
+h = v(1:1);
+u = v(2:N+1);
+x = v(N+2:end);
+% h = msspoly('hh',1);
+% u = msspoly('uu',N);
+% x = msspoly('xx',2*(N-2));
+% v = [h;u;x];
 x = reshape(x,2,N-2); % unknown states
 % all states: 2 x N
 x_full = [initial_state,x,final_state];
@@ -84,9 +88,10 @@ orders = 2*ones(1,length(cliques));
     ineqs, eqs, v, ...
     cliques, J, I, orders);
 
-prob       = convert_sedumi2mosek(SDPT3data_SEDUMIdata(blk,At,C,b));
+[At,b,c,K] = SDPT3data_SEDUMIdata(blk,At,C,b);
+prob       = convert_sedumi2mosek(At,b,c,K);
 [~,res]    = mosekopt('minimize info',prob);
-[Xopt,yopt,Sopt,obj] = recover_mosek_sol_blk(res,SDP.blk);
+[Xopt,yopt,Sopt,obj] = recover_mosek_sol_blk(res,blk);
 
 %% helper functions
 function dx = double_integrator(x,u)
